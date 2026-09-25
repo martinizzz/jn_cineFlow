@@ -1,34 +1,61 @@
-// 1. Todo en JS
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { Catalog } from './Catalog'
+
+function Layout() {
+    return (
+        <>
+            <a href="#main-content" className="skip">
+                Saltar al contenido principal
+            </a>
+            <header className="wrap boder-b border-slate-700">
+                <strong className="text-2xl text-rose-300">
+                    CineFlow
+                </strong>
+                <nav className="mt-4">
+                    <Link to="/">Catálogo</Link>
+                    <Link to="/">Creditos</Link>
+                </nav>
+            </header>
+            <main className="wrap" id="contenido">
+                <Routes>
+                    <Route path="/" element={<Catalog />}> </Route>
+                    <Route path="/titulo/:type/:id" element={
+                        <p>
+                            La ficha o tarjeta la vamos a poner despues
+                            <Link to="/">Volver al catálogo</Link>
+                        </p>
+                    }></Route>
+                    <Route path="/creditos" element={
+                        <section className="panel mb-6">
+                            <div>
+                                <p>Alumno</p>
+                                <p>Carrera</p>
+                                <p>Materia</p>
+                                <p className="muted">NUA</p>
+                            </div>
+                        </section>
+                    }></Route>
+                    <Route path="*" element={
+                        <section className="panel mb-6">
+                            <div>
+                                <p>Error 404: Página no encontrada</p>
+                                <Link to="/">Volver al catálogo</Link>
+                            </div>
+                        </section>
+                    }></Route>
+                </Routes>
+            </main>
+            <footer className="wrap muted">
+                CineFlow  Catalogo de Peliculas y Series
+            </footer>
+        </>
+    )
+}
+
 export default function App() {
     return (
-        <main className="wrap">
-            <p className='text-rose-300 font-bold'>CineFlow - Inicio</p>
-            <section className="panel">
-                <h1> Tu historia comienza aquí</h1>
-                <p> Películas, Series y Traílers, todo en un mismo lugar</p>
-            </section>
-            <h2 className="my-6"> Nuestro catálogo de práctica</h2>
-            <div className="grid-media">
-                { /* aqui se generan dinámicamente los elementos utilizamos Js */
-                    // 1. Accedemos al backend (URL estática por ahora) y traemos la info
-                    // 2. Mapeamos el array que nos devuelva para dibujar los posters
-                    // 3. Importante: El poster es un enlace <Link> a /movie/:id o /tv/:id
-                    ['Orbita Azul', 'La ultima seccion', 'Codigo R', 'Estado Final', 'A traves del tiempo'].map((title) => (
-                        <article className="panel" key={title}>
-                            <div className="poster">
-                                <span className="text-5xl">P</span>
-                            </div>
-                            <h2 className="mt-4 text-lg">{title}</h2>
-                        </article>
-                    ))
-                }
-            </div>
-            <p className="muted">
-                Invented data for the practice
-            </p>
-            {/* TODO: Aquí irá tu código para mostrar el listado de películas/series (VARIABLES) */
-            }
-        </main>
-    ); // Siempre ; al final
-
+        <BrowserRouter>
+            <Layout></Layout>
+        </BrowserRouter>
+    )
 }
